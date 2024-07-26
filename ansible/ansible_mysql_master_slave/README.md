@@ -9,13 +9,16 @@ yum install epel-release-y
 yum install ansible
 ```
 
-##### 2. 部署机执行
+##### 2. 部署机执行部署
 
 ```
 ansible-playbook -i hosts.ini start_deploy.yml
 ```
-
-##### 3. 脚本文件说明
+##### 3. 部署机执行删除环境
+```
+ansible-playbook -i hosts.ini delete_deploy.yml
+```
+##### 4. 脚本文件说明
 
  hosts.ini
 
