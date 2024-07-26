@@ -1,0 +1,51 @@
+- name: delete MySQL Replication Cluster
+  hosts: mysql_servers
+  become: yes
+  tasks:
+    - name: stop mysql service
+      service:
+        name: mysqld
+        state: stopped
+
+    - name: uninstall mysql server
+      yum:
+        name: mysql-community-server
+        state: absent
+
+    - name: remove mysql repository
+      yum:
+        name: mysql57-community
+        state: absent
+
+    - name: remove mysql-python
+      yum:
+        name: MySQL-python
+        state: absent
+        
+    - name: remove mysql packages
+      yum:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - mysql*
+        - mariadb*
+
+    - name: remove mysql repository file
+      file:
+        path: /tmp/mysql57-community-release-el7-11.noarch.rpm
+        state: absent
+    
+    - name: remove mysql configuration file
+      file:
+        path: /var/lib/mysql
+        state: absent
+    
+    - name: delete mysql log file
+      file: 
+        path: /var/log/mysqld.log
+        state: absent
+    
+    - name: delete mysql mysql pid
+      file: 
+        path: /var/run/mysqld
+        state: absent
