@@ -86,7 +86,7 @@
      mode: changemaster
      master_host: "{{ master_ip }}"
      master_user: repl
-     master_password: repl
+     master_password: "{{ mysql_repl_password }}"
      master_auto_position: 1
      login_user: root
      login_password: "{{ mysql_root_password }}"
